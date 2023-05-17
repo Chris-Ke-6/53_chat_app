@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Chatfenster</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="style.css">
+        <script src="./app.js"></script>
+    </head>
+
+    <body>
+        <div id="wrapper">
+            <div class="header">
+                <h1 class="welcome"> Willkommen <b></b> </h1>
+            </div>
+            
+            <div id="chatbox"></div>
+
+            <form name="message" action="">
+                <input name="usermsg" type="text" id="usermsg" />
+                <input name="submitmsg" type="submit" id="submitmsg" value="Send" />
+                <!--Funktion sendMessage() aufrufen-->
+            </form>
+
+            <div class="footer">
+                <button onclick="window.location.href='settings.html'"> Nutzerliste / Namensänderung </button>            
+                <input type="button" value="Beenden" onclick="window.close();">
+            </div>
+        </div> 
+    </body>
+</html>

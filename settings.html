@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Einstellungen</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <div id="wrapper">
+            <div>
+                <div class = "header">
+                    <h1 class="welcome"> Einstellungen </h1> 
+                    <br>
+                </div>
+
+                <div class="userlist">
+                    <h2> Aktuelle Nutzerliste</h2>
+                </div>
+
+                <div class="footer">
+                    <input type="button"
+                        value="Nutzerliste aktualsieren"
+                        onclick="showUserList()"
+                        >
+                </div>
+                    
+                <div id="userbox">
+                    <!--Userliste anzeigen-->
+                    
+                </div>
+                                
+
+                <div class ="header">
+                    <h2>Benutzername ändern</h2>
+                    <div class="buttonlist"
+                        <form>
+                            <label for="username">Benutzername  alt:</label> 
+                            <input type="text" id="username" name="username"> 
+                            <br>
+                            <label for="username_new">Benutzername neu:</label>
+                            <input type="text" id="username" name="username">
+                            <br>
+                            <button type="submit" onclick="changeUsername()">Absenden</button>
+                        </form>                     
+                    </div>    
+                </div>
+
+                <div class="footer">
+                    <input type="button" value="Chatfenster" onclick="window.location.href='index.html';"> 
+                    <input type="button" value="Beenden" onclick="window.close();">
+                </div>
+            </div>
+        </div>   
+    </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Anmeldeseite</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="style.css">
+        <script src="./app.js"></script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div class="header">
+                <h1 class="welcome"> Chat Anmeldung <b></b> </h1>
+            </div>    
+
+            <div class="form">          
+                <form>
+                    <label for="usernameInput">Benutzername:</label>
+                    <input type="text" id="usernameInput" name="usernameInput"><br>
+                </form>
+            </div>
+            <div class="footer">
+                <input
+                    type="submit" 
+                    value="Anmelden" 
+                    onclick="createUsername(usernameInput)";>                  
+                <input type="button" value="Beenden" onclick="window.close();">
+
+            </div>
+        </div>   
+    </body>
+</html>
