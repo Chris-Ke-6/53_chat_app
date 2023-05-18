@@ -16,7 +16,7 @@ gap: 10px;
 justify-content: center;
 }
 
-.chatbox {
+#chatbox {
 text-align: left;
 margin: 0 auto;
 margin-bottom: 25px;
