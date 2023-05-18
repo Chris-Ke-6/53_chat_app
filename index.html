@@ -14,16 +14,24 @@
                 <h1 class="welcome"> Willkommen <b></b> </h1>
             </div>
             
-            <div id="chatbox"></div>
+            <div id="chatbox">
+                <div id="messageHistory"></div> 
+            </div>
+            <!-- Funktion chatmessage anzeigen aufrufen -->
 
-            <form name="message" action="">
-                <input name="usermsg" type="text" id="usermsg" />
-                <input name="submitmsg" type="submit" id="submitmsg" value="Send" />
+            <!-- <form name="message" action=""> -->
+                <!-- <input name="usermsg" type="text" id="usermsg" />
+                <input name="submitmsg" type="submit" id="submitmsg" value="Send" /> -->
                 <!--Funktion sendMessage() aufrufen-->
+            
+            <form id="message">
+                <textarea id="usermsg" rows="1" cols="30"></textarea>
+                <button type="submit">Senden</button>
             </form>
 
             <div class="footer">
-                <button onclick="window.location.href='settings.html'"> Nutzerliste / Namensänderung </button>            
+                <button onclick="window.location.href='settings.html'"> Nutzerliste / Namensänderung </button> 
+                <button onclick="window.location.href='login.html'"> Login </button>            
                 <input type="button" value="Beenden" onclick="window.close();">
             </div>
         </div> 
