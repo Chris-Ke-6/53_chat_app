@@ -9,27 +9,21 @@
     </head>
 
     <body>
-        <div id="wrapper">
-            <div class="header">
+        <div class="wrapper">
+            <div class="header-area">
                 <h1 class="welcome"> Willkommen <b></b> </h1>
             </div>
             
-            <div id="chatbox">
+            <div class="chatbox-area">
                 <div id="messageHistory"></div> 
             </div>
-            <!-- Funktion chatmessage anzeigen aufrufen -->
-
-            <!-- <form name="message" action=""> -->
-                <!-- <input name="usermsg" type="text" id="usermsg" />
-                <input name="submitmsg" type="submit" id="submitmsg" value="Send" /> -->
-                <!--Funktion sendMessage() aufrufen-->
-            
-            <form id="message">
+           
+            <form id="message-area">
                 <textarea id="usermsg" rows="1" cols="30"></textarea>
                 <button type="submit">Senden</button>
             </form>
 
-            <div class="footer">
+            <div class="footer-area">
                 <button onclick="window.location.href='settings.html'"> Nutzerliste / Namensänderung </button> 
                 <button onclick="window.location.href='login.html'"> Login </button>            
                 <input type="button" value="Beenden" onclick="window.close();">

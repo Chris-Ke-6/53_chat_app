@@ -2,6 +2,7 @@
 const dateiPfad = 'userDataNew.txt';
 // const fs = require ('fs');
 const username = ""
+const userList =[];
 
 // Event Listener um Benutzer aus Login zu  übernehmen 
 document.addEventListener("DOMContentLoaded", function() { 
@@ -18,7 +19,6 @@ document.addEventListener("DOMContentLoaded", function() {
 // Funktion Benutzername prüfen, Nutzerliste befüllen, Chatfenster aufrufen
 function createUsername(username) {
     console.log(username);
-    let userList = [];
     console.log (userList);
     
     //Prüfen ob Benutzername leer oder bereits vorhanden
@@ -51,7 +51,7 @@ function createUsername(username) {
 
 // Meldungen aus Chatfenster nehmen
 document.addEventListener("DOMContentLoaded", function() {
-    const indexMessage = document.getElementById("message");
+    const indexMessage = document.getElementById("message-area");
     if (indexMessage) {
         indexMessage.addEventListener("submit", function(event) {
         event.preventDefault();
@@ -82,13 +82,31 @@ function showChatlist(){
 
 // Nutzerliste anzeigen
 function showUserList() {
-    console.log(userList); 
+    console.log(userList);
 }
 
 
+//Event Listener für Benutzername alt / neu
+document.addEventListener("DOMContentLoaded", function() {
+    const usernameChange = document.getElementsByID("buttonlist");
+    if (usernameChange) {
+        usernameChange.addEventListener("submit", function(event) {
+        event.preventDefault();
+        const usernameOld = document.getElementById("username_old").value;
+        const usernameNew = document.getElementById("username_new").value;
+        
+        //changeUserName();
 
-//Benutzername ändern
+        console.log(usernameOld +'->'+ usernameNew);
+        });
+    }     
+});
+
+//Benutzername wechseln
 function changeUserName(){
-
-
+    //Suche ob User vorhanden
+    //Alten User aus der UserList löschen
+    //Neuen User in die UserList eintragen
+    //Aktuelle Userlist neu aufrufen
+    console.log("Wechsel läuft");
 }
