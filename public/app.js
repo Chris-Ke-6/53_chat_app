@@ -1,6 +1,5 @@
 'use strict';
 const dateiPfad = 'userDataNew.txt';
-// const fs = require ('fs');
 const username = ""
 const userList =[];
 
@@ -40,11 +39,8 @@ function createUsername(username) {
     // Nutzer in Nutzerliste eintragen
     userList.push(username);
     console.log(userList);  
-    // Speichern Nutzerliste klappt nicht
-    // fs.writeFileSync('userList.txt', userList, (err)=>{
-    //     if (err) throw err;
-    // })
-       
+    // Express REST API ansprechen POST username
+    //      
     // Chatfenster aufrufen
     window.location.href = "index.html";
 }
@@ -80,15 +76,35 @@ function showChatlist(){
     //3 Meldungen zeitlich gegliedert mit Zeitstempel Name Meldung anzeigen
 }
 
-// Nutzerliste anzeigen
-function showUserList() {
-    console.log(userList);
-}
 
+// Event Listener um Nutzerliste anzuzeigen 
+document.addEventListener("DOMContentLoaded", function() { 
+    const userUpdate = document.getElementById("userlistUpdate");
+    if (userUpdate) {
+        userUpdate.addEventListener("submit", function(event) {
+        event.preventDefault();
+        showUserList(); // Funktionsaufruf
+        console.log('Eingabe erfolgt')
+        });
+    }
+});
+
+function showUserList() {
+    fetch('http://localhost:3030/api/userlist', {
+        methode:"GET",
+    })
+    .then(res => res.json())
+    .then(data=> {
+        console.log(data);
+        let userbox = document.getElementById("userbox");
+        userbox.textContent = JSON.stringify(data, null, 2);
+    })
+    .catch(error=> console.error(error));
+}
 
 //Event Listener für Benutzername alt / neu
 document.addEventListener("DOMContentLoaded", function() {
-    const usernameChange = document.getElementsByID("buttonlist");
+    const usernameChange = document.getElementById("buttonlist");
     if (usernameChange) {
         usernameChange.addEventListener("submit", function(event) {
         event.preventDefault();
