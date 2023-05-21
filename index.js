@@ -49,7 +49,9 @@ app.post('/api/user', (req, res)=>{
     }
     
     //Prüfen ob username schon vorhanden
-    if (userList.includes(username)){
+    const result1 = userList.find(item => item.username === username);
+    if (result1) {
+        console.log("found");
         res.status(200).json('Benutzername bereits vergeben');
         return;
     }
