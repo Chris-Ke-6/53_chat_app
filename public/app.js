@@ -4,46 +4,58 @@ const username = ""
 const userList =[];
 
 // Event Listener um Benutzer aus Login zu  übernehmen 
-document.addEventListener("DOMContentLoaded", function() { 
-    const loginInput = document.getElementById("userInput");
-    if (loginInput) {
-        loginInput.addEventListener("submit", function(event) {
-        event.preventDefault();
-        const username = document.getElementById("userInputName").value; //Var befüllen
-        createUsername(username); // Funktionsaufruf
-        });
-    }
+document.addEventListener("submit", function(event) {
+    event.preventDefault();
+    const username = document.getElementById("userInputName").value; //Var befüllen
+    createUsername(username); // Funktionsaufruf
+    
+    // Chatfenster aufrufen
+    window.location.href = "index.html";
+
 });
+// document.addEventListener("DOMContentLoaded", function() { 
+//     const loginInput = document.getElementById("userInput");
+//     if (loginInput) {
+//         loginInput.addEventListener("submit", function(event) {
+//         event.preventDefault();
+//         const username = document.getElementById("userInputName").value; //Var befüllen
+//         createUsername(username); // Funktionsaufruf
+//         });
+//     }
+// });
 
 // Funktion Benutzername prüfen, Nutzerliste befüllen, Chatfenster aufrufen
 function createUsername(username) {
     console.log(username);
-    console.log (userList);
     
     //Prüfen ob Benutzername leer oder bereits vorhanden
-    if (username == "") {
-        alert('Bitte Benutzername eingeben');
+    if (username == ""|| username.length<2) {
+        alert('Bitte Benutzername mit mind. 2 Buchstaben eingeben');
         //Abbruchverhalten mit Error damit nicht das Chatfenster aufgerufen wird?
     }   
-    else {
-        for (let i = 0; i < userList.length; i++) {
-        if (username === userList[i]) {
-            console.log('Bitte anderen Username wählen, da bereits vergeben');
-            } 
-        else {
-            console.log('Benutzer wird in Nutzerliste eingetragen')  
-            }           
+    //Username an Server senden 
+    fetch('http://localhost:3030/api/user', {
+        method:"POST",
+        headers: {
+            'Content-Type':'application/json'
+        },
+        body: JSON.stringify({
+            "username": username
+        })
+    })
+
+    .then((res) => {
+        if (res.ok){
+            alert("Benutzername eingetragen");
+        } else {
+            throw new Error('Benutzername nicht okay')
         }
-    }
         
-    // Nutzer in Nutzerliste eintragen
-    userList.push(username);
-    console.log(userList);  
-    // Express REST API ansprechen POST username
-    //      
-    // Chatfenster aufrufen
-    window.location.href = "index.html";
-}
+    })
+    .catch((error) => {
+        console.error(error);
+    });    
+};
 
 // Meldungen aus Chatfenster nehmen
 document.addEventListener("DOMContentLoaded", function() {
@@ -78,20 +90,15 @@ function showChatlist(){
 
 
 // Event Listener um Nutzerliste anzuzeigen 
-document.addEventListener("DOMContentLoaded", function() { 
-    const userUpdate = document.getElementById("userlistUpdate");
-    if (userUpdate) {
-        userUpdate.addEventListener("submit", function(event) {
-        event.preventDefault();
-        showUserList(); // Funktionsaufruf
-        console.log('Eingabe erfolgt')
-        });
-    }
-});
+document.addEventListener("submit", function(event) {
+    event.preventDefault();
+    showUserList(); // Funktionsaufruf
+    console.log('Eingabe erfolgt')
+    });
 
 function showUserList() {
     fetch('http://localhost:3030/api/userlist', {
-        methode:"GET",
+        method:"GET",
     })
     .then(res => res.json())
     .then(data=> {
