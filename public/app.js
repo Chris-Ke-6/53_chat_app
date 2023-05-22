@@ -3,16 +3,24 @@ const dateiPfad = 'userDataNew.txt';
 const username = ""
 const userList =[];
 
-// Event Listener um Benutzer aus Login zu  übernehmen 
-document.addEventListener("submit", function(event) {
-    event.preventDefault();
+function login(){
     const username = document.getElementById("userInputName").value; //Var befüllen
     createUsername(username); // Funktionsaufruf
     
     // Chatfenster aufrufen
     window.location.href = "index.html";
+}
+// Event Listener um Benutzer aus Login zu  übernehmen 
 
-});
+// document.addEventListener("submit", function(event) {
+//     event.preventDefault();
+//     const username = document.getElementById("userInputName").value; //Var befüllen
+//     createUsername(username); // Funktionsaufruf
+    
+//     // Chatfenster aufrufen
+//     window.location.href = "index.html";
+
+// });
 // document.addEventListener("DOMContentLoaded", function() { 
 //     const loginInput = document.getElementById("userInput");
 //     if (loginInput) {
@@ -25,7 +33,7 @@ document.addEventListener("submit", function(event) {
 // });
 
 // Funktion Benutzername prüfen, Nutzerliste befüllen, Chatfenster aufrufen
-function createUsername(username) {
+async function createUsername(username) {
     console.log(username);
     
     //Prüfen ob Benutzername leer oder bereits vorhanden
@@ -34,23 +42,21 @@ function createUsername(username) {
         //Abbruchverhalten mit Error damit nicht das Chatfenster aufgerufen wird?
     }   
     //Username an Server senden 
-    fetch('http://localhost:3030/api/user', {
-        method:"POST",
+    await fetch('http://localhost:3030/api/user', {
+        method:"post",
         headers: {
-            'Content-Type':'application/json'
+            'Content-Type':'application/json',
+            'Accept': '*/*'
         },
-        body: JSON.stringify({
-            "username": username
-        })
-    })
-
-    .then((res) => {
-        if (res.ok){
+        body: JSON.stringify([{username: username}])    //JSON Objekt
+    }).then((res) => {
+        if (res.status == 200){
             alert("Benutzername eingetragen");
-        } else {
-            throw new Error('Benutzername nicht okay')
         }
-        
+        else if (res.status == 204){
+            alert('Benutzername nicht okay')
+        }
+        //else 
     })
     .catch((error) => {
         console.error(error);
@@ -91,6 +97,7 @@ function showChatlist(){
 
 // Event Listener um Nutzerliste anzuzeigen 
 document.addEventListener("submit", function(event) {
+    console.log("trigger");
     event.preventDefault();
     showUserList(); // Funktionsaufruf
     console.log('Eingabe erfolgt')

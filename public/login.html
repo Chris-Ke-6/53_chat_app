@@ -10,18 +10,20 @@
         <div class="wrapper">
             <div class="header-area">
                 <h1 class="welcome"> Chat Anmeldung <b></b> </h1>
-            </div>    
+            </div>
 
             <div class="form">        
                 <form id="userInput">
-                    <label for="userInputName">Benutzername:</label>
-                    <input type="text" id="userInputName">
-                    <input type="submit" value="Anmelden">
+                    <div class="login-input">
+                        <label for="userInputName">Benutzername:</label>
+                        <input type="text" id="userInputName">
+                    </div> 
+                                       
+                    <div class="footer-area">       
+                        <input type="button" value="Beenden" onclick="window.close();">
+                        <input type="submit" value="Anmelden" onclick="login()">
+                    </div>
                 </form>
-            </div>
-
-            <div class="footer-area">       
-                <input type="button" value="Beenden" onclick="window.close();">
             </div>
         </div>   
     </body>

@@ -36,6 +36,7 @@ app.get('/api/userlist', (req, res)=>{
 
 //API erhält username; liefert ID und Username zurück
 app.post('/api/user', (req, res)=>{
+    console.log('REQUEST INCOMING', req.body)
     const jsonData = req.body[0];
     const username = jsonData.username;
 
@@ -52,7 +53,9 @@ app.post('/api/user', (req, res)=>{
     const result1 = userList.find(item => item.username === username);
     if (result1) {
         console.log("found");
-        res.status(200).json('Benutzername bereits vergeben');
+        //res.setHeader('Access-Control-Allow-Origin', '*')
+        res.status(204),
+        res.send("found");
         return;
     }
 
