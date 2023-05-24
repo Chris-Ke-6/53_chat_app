@@ -36,7 +36,7 @@ app.get('/api/userlist', (req, res)=>{
 
 //API erhält username; liefert ID und Username zurück
 app.post('/api/user', (req, res)=>{
-    console.log('REQUEST INCOMING', req.body)
+    console.log('REQUEST INCOMING', req.body) //Body kontrollieren
     const jsonData = req.body[0];
     const username = jsonData.username;
 
@@ -52,10 +52,7 @@ app.post('/api/user', (req, res)=>{
     //Prüfen ob username schon vorhanden
     const result1 = userList.find(item => item.username === username);
     if (result1) {
-        console.log("found");
-        //res.setHeader('Access-Control-Allow-Origin', '*')
-        res.status(204),
-        res.send("found");
+        res.status(204)
         return;
     }
 
@@ -64,6 +61,7 @@ app.post('/api/user', (req, res)=>{
     do { 
         id= generateID();
     } while (userList.some(username => username.id==id));
+    
     const newUser = {id,username}
     userList.push(newUser);
 
@@ -73,15 +71,15 @@ app.post('/api/user', (req, res)=>{
         if (error) {
           console.error('Error writing userList file:', error);
           res.status(500).json({ error: 'Failed to save user data' });
+          return;
         } else {
-          res.status(200).json(newUser);
+          console.log(newUser);
+          res.status(200).json([newUser]);
         }
     });
-
-    res.send(newUser);
 });
 
-
+//API erhält alten und neuen Usernamen
 app.put('/api/user/username_new:id', (req, res)=>{  
     //Anstelle :id müsste hier die HTML Variable newUsername stehen
     //const username_old = 
@@ -94,6 +92,46 @@ app.put('/api/user/username_new:id', (req, res)=>{
     //Meldung neuer Name zurücksenden
 
     
+});
+
+//Mitteilung aus Chatfenster empfangen, Mitteilungen sortieren und letzte 10 Mitteilungen zurücksenden
+app.post('/api/message', (req, res)=>{
+    console.log('Message in', req.body) //Body kontrollieren
+    const messageTime = req.body[0];
+    const messageUser = req.body[1];
+    const messageText = req.body[2];
+
+    //Einlesen JSON Messagefile aus Dateiablage
+    let messageList = [];
+    try {
+        const messageListData = fs.readFileSync('data/userList.json', 'utf8');
+        messageList = JSON.parse(messageListData);
+    } catch (error) {
+        console.error('Error reading userList file:', error);
+    }
+    
+    //Mitteilung in die MessageList eintragen und nach Zeitstempel sortieren
+    const newMessage = [{"messageTime": messageTime, "messageUser": messageUser, "messageText": messageText}];
+    messageList.push(newMessage);
+    messageList.sort((a, b) => new Date(a.messageTime) - new Date(b.messageTime));
+    console.log(messageList);
+
+    //Letzte 10 Mitteilungen ermitteln
+    const tenMessages = messageList.slice(-10);    
+    
+    //messageList sichern in Fileablage
+    const messageListDir = path.join(__dirname, 'data', 'messageList.json');
+    fs.writeFile(messageListDir, JSON.stringify(messageList), 'utf8', (error) => {
+        if (error) {
+          console.error('Error writing messageList file:', error);
+          res.status(500).json({ error: 'Failed to save user data' });
+          return;
+        } else {
+          res.status(200);
+          res.json(tenMessages);
+        }
+    });
+    res.send;
 });
 
 
